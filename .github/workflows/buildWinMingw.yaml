@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  workflow_dispatch
+
+jobs:
+  windows-mingw:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install MinGW
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x86_64
+
+      - name: Configure CMake (MinGW)
+        run: cmake -G "MinGW Makefiles" -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -- -j4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myApp-windows-mingw
+          path: build/myApp.exe
