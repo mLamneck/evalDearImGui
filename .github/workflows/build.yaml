@@ -9,6 +9,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Configure
         run: cmake -B build -S . -A x64
@@ -20,9 +22,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: myApp-windows
-          path: |
-            build/Release/myApp.exe
-          compression-level: 9
+          path: build/Release/myApp.exe
   
 
   macos:
@@ -30,6 +30,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       
       - name: Configure
         run: cmake -B build -S .
@@ -41,7 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: myApp-macos
-          path: |
-            build/myApp
-          compression-level: 9
-          if-no-files-found: warn
+          path: build/myApp
