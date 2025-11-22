@@ -35,7 +35,7 @@ elseif(APPLE)
         ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
     )
 
-    set(APP_MAIN src/main_mac.cpp)
+    set(APP_MAIN src/main_mac.mm)
 
 endif()
 
