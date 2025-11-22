@@ -50,6 +50,7 @@ target_link_libraries(imgui PUBLIC glfw)
 # ----------------------------------------
 add_executable(myApp 
     src/main.cpp
+	src/app.cpp
 )
 
 find_package(OpenGL REQUIRED)

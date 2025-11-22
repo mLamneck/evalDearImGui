@@ -1,0 +1,33 @@
+name: Build macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos-build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install Xcode Command Line Tools
+        run: |
+          xcode-select --install || echo "Already installed"
+
+      - name: Install CMake (if needed)
+        run: brew install cmake || echo "CMake already installed"
+
+      - name: Configure CMake
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -- -j$(sysctl -n hw.ncpu)
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: myApp-macos
+          path: build/myApp
