@@ -43,6 +43,8 @@ target_include_directories(imgui PUBLIC
     ${IMGUI_DIR}/backends
 )
 
+target_link_libraries(imgui PUBLIC glfw)
+
 # ----------------------------------------
 # Your executable
 # ----------------------------------------
