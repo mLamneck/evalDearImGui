@@ -16,6 +16,9 @@ jobs:
         with:
           platform: x86_64
 
+      - name: Refresh environment
+          run: refreshenv
+
       - name: Configure CMake (MinGW)
         run: cmake -G "MinGW Makefiles" -B build -DCMAKE_BUILD_TYPE=Release
 
