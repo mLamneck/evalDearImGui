@@ -46,7 +46,13 @@ target_include_directories(imgui PUBLIC
 target_link_libraries(imgui PUBLIC glfw)
 
 # ----------------------------------------
-# Your executable
+# other dependecies
+# ----------------------------------------
+
+add_subdirectory(SDDS)
+
+# ----------------------------------------
+# executable
 # ----------------------------------------
 add_executable(myApp 
     src/main.cpp
@@ -59,7 +65,19 @@ target_link_libraries(myApp PRIVATE
     imgui
     glfw
     OpenGL::GL
+	sdds
 )
+
+# ----------------------------------------
+# windows specific stuff
+# ----------------------------------------
+
+if(WIN32)
+	target_compile_definitions(myApp PUBLIC USE_UDP_COMM=1)
+	target_link_libraries(myApp PRIVATE
+		ws2_32
+	)
+endif()
 
 # ----------------------------------------
 # macOS frameworks for GLFW/OpenGL
